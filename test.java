@@ -23,32 +23,19 @@ public class test extends JFrame{
 		Program.getContentPane().setVisible(true);
 	
 		Program.pack();
-
+/*
 		java.util.Timer paintTimer = new java.util.Timer();
+		java.util.Timer updateTimer = new java.util.Timer();
 		paintTask task = new paintTask(Program.getRoot());
+		updateTask task = new updateTask(Program.getRoot());
 		long timerDelay = 16;
 		paintTimer.schedule(task,timerDelay,timerDelay);
+		updateTimer.schedule(task,timerDelay,timerDelay);*/
 		
 		while(true){
-			if(Program.getLeftPressed() && !Program.getRightPressed())
-			{
-				Program.getRoot().getEntities().elementAt(0).setPosX(-5);
-			}
-			else if(Program.getRightPressed() && !Program.getLeftPressed())
-			{
-				Program.getRoot().getEntities().elementAt(0).setPosX(5);
-			}
-			else if(Program.getUpPressed() && !Program.getDownPressed())
-			{
-				Program.getRoot().getEntities().elementAt(0).setPosY(-5);
-			}
-			else if(Program.getDownPressed() && !Program.getUpPressed())
-			{
-				Program.getRoot().getEntities().elementAt(0).setPosY(5);
-			}
-			System.out.println("LOLOLOLOLO");
-			/*Program.getRoot().paintComponent((Graphics2D)Program.getRoot().getGraphics());
-			try { Thread.sleep(10); } catch (Exception e) {}*/
+			Program.getRoot().updateComponent();
+			Program.getRoot().paintComponent((Graphics2D)Program.getRoot().getGraphics());
+			try { Thread.sleep(10); } catch (Exception e) {}
 		}
 	}
 
@@ -88,28 +75,28 @@ public class test extends JFrame{
 		{
 			if (e.getKeyCode() == KeyEvent.VK_LEFT)
 			{
-				leftPressed = true;
+				root.getEntities().elementAt(0).setXDis(-5);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 			{
-				rightPressed = true;
+				root.getEntities().elementAt(0).setXDis(5);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_UP)
 			{
-				upPressed = true;
+				root.getEntities().elementAt(0).setYDis(-5);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_DOWN)
 			{
-				downPressed = true;
+				root.getEntities().elementAt(0).setYDis(5);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_CONTROL)
 			{
 				if(!ctrlFlag)
 				{
-					bullet bulL = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),"left");
-					bullet bulR = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),"right");
-					bullet bulU = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),"up");
-					bullet bulD = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),"down");
+					bullet bulL = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),-10,0);
+					bullet bulR = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),10,0);
+					bullet bulU = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),0,-10);
+					bullet bulD = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),0,10);
 					root.createEntity(bulL);
 					root.createEntity(bulR);
 					root.createEntity(bulU);
@@ -123,19 +110,19 @@ public class test extends JFrame{
 		{
 			if(e.getKeyCode() == KeyEvent.VK_LEFT)
 			{
-				leftPressed = false;
+				root.getEntities().elementAt(0).setXDis(0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 			{
-				rightPressed = false;
+				root.getEntities().elementAt(0).setXDis(0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_UP)
 			{
-				upPressed = false;
+				root.getEntities().elementAt(0).setYDis(0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_DOWN)
 			{
-				downPressed = false;
+				root.getEntities().elementAt(0).setYDis(0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_CONTROL)
 			{
@@ -175,7 +162,7 @@ class basePanel extends JPanel{
 	basePanel()
 	{
 		entities = new Vector<entity>();
-		Player player = new Player();
+		Player player = new Player(64,64,512,512,0,0);
 		entities.addElement(player);
 	}
 	
@@ -185,9 +172,17 @@ class basePanel extends JPanel{
 		g.fillRect(0,0,getWidth(),getHeight());
 		for(int i=0;i < entities.size();i++)
 		{
-			entities.get(i).update(g);
+			entities.get(i).paint(g);
 		}
 		g.dispose();
+	}
+	
+	public void updateComponent()
+	{
+		for(int i=0;i < entities.size();i++)
+		{
+			entities.get(i).update();
+		}
 	}
 	
 	public Vector<entity> getEntities()
@@ -213,6 +208,21 @@ class paintTask extends TimerTask{
 	public void run()
 	{
 		paint.paintComponent((Graphics2D)paint.getGraphics());
+	}
+}
+
+class updateTask extends TimerTask{
+
+	basePanel paint;
+
+	updateTask(basePanel toPaint)
+	{
+		paint = toPaint;
+	}
+	
+	public void run()
+	{
+		paint.updateComponent();
 	}
 }
 
@@ -298,8 +308,8 @@ class entity{
 	
 	public void update()
 	{
-		xPos += xDis;
-		yPos += yDis;
+		posX += xDis;
+		posY += yDis;
 	}
 	
 	public void setXDis(int xD)
@@ -333,7 +343,7 @@ class bullet extends entity{
 		super(w,h,x,y,xP,yP,"bullet");
 	}
 	
-	public void update(Graphics2D g)
+	public void paint(Graphics2D g)
 	{
 		AffineTransform a = g.getTransform();
 		AffineTransform b = new AffineTransform();
@@ -347,7 +357,7 @@ class bullet extends entity{
 		{
 			r = Math.toRadians(270);
 		}
-		else if(xPos > 0)
+		else if(xDis > 0)
 		{
 			r = Math.toRadians(180);
 		}
