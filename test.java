@@ -361,8 +361,6 @@ class bullet extends entity{
 		{
 			r = Math.toRadians(180);
 		}
-		posX += xDis;
-		posY += yDis;
 		b.rotate(r);
 		b.translate(-posX-(width/2),-posY-(height/2));
 		g.setTransform(b);
