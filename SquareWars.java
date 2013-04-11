@@ -30,8 +30,8 @@ public class SquareWars extends JFrame{
 		updateTimer.schedule(update_task, update_timer_delay, update_timer_delay);
 		
 /*		while(true){
-			Program.getRoot().updateComponent();
-			Program.getRoot().paintComponent((Graphics2D)Program.getRoot().getGraphics());
+			program.getRoot().updateComponent();
+			program.getRoot().paintComponent((Graphics2D)program.getRoot().getGraphics());
 			try { Thread.sleep(10); } catch (Exception e) {}
 		}*/
 	}
@@ -85,10 +85,10 @@ public class SquareWars extends JFrame{
 			{
 				if(!ctrl_flag)
 				{
-					Bullet bullet_left = new Bullet(64,64,root.getEntities().elementAt(0).getXPos(),root.getEntities().elementAt(0).getYPos(),-10,0);
-					Bullet bullet_right = new Bullet(64,64,root.getEntities().elementAt(0).getXPos(),root.getEntities().elementAt(0).getYPos(),10,0);
-					Bullet bullet_up = new Bullet(64,64,root.getEntities().elementAt(0).getXPos(),root.getEntities().elementAt(0).getYPos(),0,-10);
-					Bullet bullet_down = new Bullet(64,64,root.getEntities().elementAt(0).getXPos(),root.getEntities().elementAt(0).getYPos(),0,10);
+					Bullet bullet_left = new Bullet(64,64,root.getEntities().elementAt(0).getXPos()-64,root.getEntities().elementAt(0).getYPos(),-10,0);
+					Bullet bullet_right = new Bullet(64,64,root.getEntities().elementAt(0).getXPos()+64,root.getEntities().elementAt(0).getYPos(),10,0);
+					Bullet bullet_up = new Bullet(64,64,root.getEntities().elementAt(0).getXPos(),root.getEntities().elementAt(0).getYPos()-64,0,-10);
+					Bullet bullet_down = new Bullet(64,64,root.getEntities().elementAt(0).getXPos(),root.getEntities().elementAt(0).getYPos()+64,0,10);
 					root.createEntity(bullet_left);
 					root.createEntity(bullet_right);
 					root.createEntity(bullet_up);

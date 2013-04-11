@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.awt.image.*;
 import javax.swing.*;
 import javax.imageio.*;
 import java.io.*;
@@ -10,7 +11,7 @@ import java.lang.*;
 class Entity{
 	protected int width;
 	protected int height;
-	protected Image image;
+	protected BufferedImage image;
 	protected int x_pos;
 	protected int y_pos;
 	protected int x_dis;
@@ -24,7 +25,7 @@ class Entity{
 		y_pos = 512;
 		
 		try{
-		File file = new File("sprites/square.bmp");
+		File file = new File("sprites/square.png");
 		image = ImageIO.read(file);
 		}catch(Exception e){
 			System.out.println("LOL NO FILE");
@@ -40,10 +41,21 @@ class Entity{
 		x_dis = x_p;
 		y_dis = y_p;
 		try{
-		File file = new File("sprites/"+s+".bmp");
+		File file = new File("sprites/"+s+".png");
 		image = ImageIO.read(file);
 		}catch(Exception e){
 			System.out.println("LOL NO FILE");
+		}
+		for(int i=0;i < image.getWidth();i++)
+		{
+			for(int j=0;j < image.getHeight();j++)
+			{
+				
+				if(image.getRGB(i,j) == new Color(255,0,255,255).getRGB())
+				{
+					image.setRGB(i,j,new Color(255,0,255,0).getRGB());
+				}
+			}
 		}
 	}
 
