@@ -9,10 +9,6 @@ import java.lang.*;
 
 public class test extends JFrame{
 	private basePanel root;
-	private boolean leftPressed;
-	private boolean rightPressed;
-	private boolean upPressed;
-	private boolean downPressed;
 	
 	public static void main(String args[])
 	{
@@ -51,11 +47,6 @@ public class test extends JFrame{
 		this.setLocation((int)(p.getX()-512),(int)(p.getY()-512));
 		root = new basePanel();
 		this.getContentPane().add(root);
-		
-		leftPressed = false;
-		rightPressed = false;
-		upPressed = false;
-		downPressed = false;
 		
 		addKeyListener(new keyInput());
 		
@@ -137,22 +128,6 @@ public class test extends JFrame{
 				System.exit(0);
 			}			
 		}
-	}
-	public boolean getLeftPressed()
-	{
-		return leftPressed;
-	}
-	public boolean getRightPressed()
-	{
-		return rightPressed;
-	}
-	public boolean getUpPressed()
-	{
-		return upPressed;
-	}
-	public boolean getDownPressed()
-	{
-		return downPressed;
 	}
 }
 
