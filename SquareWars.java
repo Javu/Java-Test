@@ -7,35 +7,36 @@ import java.io.*;
 import java.util.*;
 import java.lang.*;
 
-public class test extends JFrame{
-	private basePanel root;
+public class SquareWars extends JFrame{
+	private BasePanel root;
 	
 	public static void main(String args[])
 	{
-		test Program = new test();
+		SquareWars program = new SquareWars();
 
-		Program.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Program.setVisible(true);
-		Program.getContentPane().setVisible(true);
+		program.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		program.setVisible(true);
+		program.getContentPane().setVisible(true);
 	
-		Program.pack();
-/*
+		program.pack();
+
 		java.util.Timer paintTimer = new java.util.Timer();
 		java.util.Timer updateTimer = new java.util.Timer();
-		paintTask task = new paintTask(Program.getRoot());
-		updateTask task = new updateTask(Program.getRoot());
-		long timerDelay = 16;
-		paintTimer.schedule(task,timerDelay,timerDelay);
-		updateTimer.schedule(task,timerDelay,timerDelay);*/
+		PaintTask paint_task = new PaintTask(program.getRoot());
+		UpdateTask update_task = new UpdateTask(program.getRoot());
+		long paint_timer_delay = 16;
+		long update_timer_delay = 16;
+		paintTimer.schedule(paint_task, paint_timer_delay, paint_timer_delay);
+		updateTimer.schedule(update_task, update_timer_delay, update_timer_delay);
 		
-		while(true){
+/*		while(true){
 			Program.getRoot().updateComponent();
 			Program.getRoot().paintComponent((Graphics2D)Program.getRoot().getGraphics());
 			try { Thread.sleep(10); } catch (Exception e) {}
-		}
+		}*/
 	}
 
-	test()
+	SquareWars()
 	{
 		super("JAVA GRAPHICS TEST");
 
@@ -45,54 +46,54 @@ public class test extends JFrame{
 		this.setLocationRelativeTo(null);
 		Point p = this.getLocation();
 		this.setLocation((int)(p.getX()-512),(int)(p.getY()-512));
-		root = new basePanel();
+		root = new BasePanel();
 		this.getContentPane().add(root);
 		
-		addKeyListener(new keyInput());
+		addKeyListener(new KeyInput());
 		
 		setIgnoreRepaint(true);
 	}
 
-	public basePanel getRoot()
+	public BasePanel getRoot()
 	{
 		return root;
 	}
 	
-	private class keyInput extends KeyAdapter{
+	private class KeyInput extends KeyAdapter{
 
-		boolean ctrlFlag = false;
+		boolean ctrl_flag = false;
 		
 		public void keyPressed(KeyEvent e)
 		{
 			if (e.getKeyCode() == KeyEvent.VK_LEFT)
 			{
-				root.getEntities().elementAt(0).setXDis(-5);
+				root.getEntities().elementAt(0).setx_dis(-5);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 			{
-				root.getEntities().elementAt(0).setXDis(5);
+				root.getEntities().elementAt(0).setx_dis(5);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_UP)
 			{
-				root.getEntities().elementAt(0).setYDis(-5);
+				root.getEntities().elementAt(0).sety_dis(-5);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_DOWN)
 			{
-				root.getEntities().elementAt(0).setYDis(5);
+				root.getEntities().elementAt(0).sety_dis(5);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_CONTROL)
 			{
-				if(!ctrlFlag)
+				if(!ctrl_flag)
 				{
-					bullet bulL = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),-10,0);
-					bullet bulR = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),10,0);
-					bullet bulU = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),0,-10);
-					bullet bulD = new bullet(64,64,root.getEntities().elementAt(0).getPosX(),root.getEntities().elementAt(0).getPosY(),0,10);
+					bullet bulL = new bullet(64,64,root.getEntities().elementAt(0).getx_pos(),root.getEntities().elementAt(0).gety_pos(),-10,0);
+					bullet bulR = new bullet(64,64,root.getEntities().elementAt(0).getx_pos(),root.getEntities().elementAt(0).gety_pos(),10,0);
+					bullet bulU = new bullet(64,64,root.getEntities().elementAt(0).getx_pos(),root.getEntities().elementAt(0).gety_pos(),0,-10);
+					bullet bulD = new bullet(64,64,root.getEntities().elementAt(0).getx_pos(),root.getEntities().elementAt(0).gety_pos(),0,10);
 					root.createEntity(bulL);
 					root.createEntity(bulR);
 					root.createEntity(bulU);
 					root.createEntity(bulD);
-					ctrlFlag = true;
+					ctrl_flag = true;
 				}
 			}
 		}
@@ -101,23 +102,23 @@ public class test extends JFrame{
 		{
 			if(e.getKeyCode() == KeyEvent.VK_LEFT)
 			{
-				root.getEntities().elementAt(0).setXDis(0);
+				root.getEntities().elementAt(0).setx_dis(0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 			{
-				root.getEntities().elementAt(0).setXDis(0);
+				root.getEntities().elementAt(0).setx_dis(0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_UP)
 			{
-				root.getEntities().elementAt(0).setYDis(0);
+				root.getEntities().elementAt(0).sety_dis(0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_DOWN)
 			{
-				root.getEntities().elementAt(0).setYDis(0);
+				root.getEntities().elementAt(0).sety_dis(0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_CONTROL)
 			{
-				ctrlFlag = false;
+				ctrl_flag = false;
 			}
 		}
 		
@@ -131,10 +132,10 @@ public class test extends JFrame{
 	}
 }
 
-class basePanel extends JPanel{
+class BasePanel extends JPanel{
 	private Vector<entity> entities;
 	
-	basePanel()
+	BasePanel()
 	{
 		entities = new Vector<entity>();
 		Player player = new Player(64,64,512,512,0,0);
@@ -171,13 +172,13 @@ class basePanel extends JPanel{
 	}
 }
 
-class paintTask extends TimerTask{
+class PaintTask extends TimerTask{
 
-	basePanel paint;
+	BasePanel paint;
 
-	paintTask(basePanel toPaint)
+	PaintTask(BasePanel to_paint)
 	{
-		paint = toPaint;
+		paint = to_paint;
 	}
 	
 	public void run()
@@ -186,18 +187,18 @@ class paintTask extends TimerTask{
 	}
 }
 
-class updateTask extends TimerTask{
+class UpdateTask extends TimerTask{
 
-	basePanel paint;
+	BasePanel update;
 
-	updateTask(basePanel toPaint)
+	UpdateTask(BasePanel to_update)
 	{
-		paint = toPaint;
+		update = to_update;
 	}
 	
 	public void run()
 	{
-		paint.updateComponent();
+		update.updateComponent();
 	}
 }
 
@@ -205,17 +206,17 @@ class entity{
 	protected int width;
 	protected int height;
 	protected Image image;
-	protected int posX;
-	protected int posY;
-	protected int xDis;
-	protected int yDis;
+	protected int x_pos;
+	protected int y_pos;
+	protected int x_dis;
+	protected int y_dis;
 	
 	entity()
 	{
 		width = 64;
 		height = 64;
-		posX = 512;
-		posY = 512;
+		x_pos = 512;
+		y_pos = 512;
 		
 		try{
 		File file = new File("sprites/square.bmp");
@@ -225,14 +226,14 @@ class entity{
 		}
 	}
 	
-	entity(int w, int h, int x, int y, int xP, int yP, String s)
+	entity(int w, int h, int x, int y, int x_p, int y_p, String s)
 	{
 		width = w;
 		height = h;
-		posX = x;
-		posY = y;
-		xDis = xP;
-		yDis = yP;
+		x_pos = x;
+		y_pos = y;
+		x_dis = x_p;
+		y_dis = y_p;
 		try{
 		File file = new File("sprites/"+s+".bmp");
 		image = ImageIO.read(file);
@@ -256,66 +257,66 @@ class entity{
 		return image;
 	}
 	
-	public int getPosX()
+	public int getx_pos()
 	{
-		return posX;
+		return x_pos;
 	}
 	
-	public int getPosY()
+	public int gety_pos()
 	{
-		return posY;
+		return y_pos;
 	}
 	
-	public void setPosX(int i)
+	public void setXPos(int i)
 	{
-		posX = posX + i;
+		x_pos = x_pos + i;
 	}
 	
-	public void setPosY(int i)
+	public void setYPos(int i)
 	{
-		posY = posY + i;
+		y_pos = y_pos + i;
 	}
 	
 	public void paint(Graphics2D g)
 	{
-		g.drawImage(this.image,this.posX,this.posY,null);
+		g.drawImage(this.image,this.x_pos,this.y_pos,null);
 	}
 	
 	public void update()
 	{
-		posX += xDis;
-		posY += yDis;
+		x_pos += x_dis;
+		y_pos += y_dis;
 	}
 	
-	public void setXDis(int xD)
+	public void setx_dis(int x_d)
 	{
-		xDis = xD;
+		x_dis = x_d;
 	}
 	
-	public void setYDis(int yD)
+	public void sety_dis(int y_d)
 	{
-		yDis = yD;
+		y_dis = y_d;
 	}
 }
 
 class Player extends entity{
 	
-	Player(int w, int h, int x, int y, int xP, int yP)
+	Player(int w, int h, int x, int y, int x_p, int y_p)
 	{
-		super(w,h,x,y,xP,yP,"square");
+		super(w,h,x,y,x_p,y_p,"square");
 	}
 	
 	public void update(Graphics2D g)
 	{
-		g.drawImage(this.image,this.posX,this.posY,null);
+		g.drawImage(this.image,this.x_pos,this.y_pos,null);
 	}
 }
 
 class bullet extends entity{
 	
-	bullet(int w, int h, int x, int y, int xP, int yP)
+	bullet(int w, int h, int x, int y, int x_p, int y_p)
 	{
-		super(w,h,x,y,xP,yP,"bullet");
+		super(w,h,x,y,x_p,y_p,"bullet");
 	}
 	
 	public void paint(Graphics2D g)
@@ -323,23 +324,23 @@ class bullet extends entity{
 		AffineTransform a = g.getTransform();
 		AffineTransform b = new AffineTransform();
 		double r = 0;
-		b.translate(posX+(width/2),posY+(height/2));
-		if(yDis < 0)
+		b.translate(x_pos+(width/2),y_pos+(height/2));
+		if(y_dis < 0)
 		{
 			r = Math.toRadians(90);
 		}
-		else if(yDis > 0)
+		else if(y_dis > 0)
 		{
 			r = Math.toRadians(270);
 		}
-		else if(xDis > 0)
+		else if(x_dis > 0)
 		{
 			r = Math.toRadians(180);
 		}
 		b.rotate(r);
-		b.translate(-posX-(width/2),-posY-(height/2));
+		b.translate(-x_pos-(width/2),-y_pos-(height/2));
 		g.setTransform(b);
-		g.drawImage(this.image,this.posX,this.posY,null);
+		g.drawImage(this.image,this.x_pos,this.y_pos,null);
 		g.setTransform(a);
 	}
 }
