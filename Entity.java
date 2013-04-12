@@ -16,7 +16,8 @@ class Entity{
 	protected int y_pos;
 	protected int x_dis;
 	protected int y_dis;
-	
+	protected boolean destroyed;
+
 	Entity()
 	{
 		width = 64;
@@ -30,6 +31,8 @@ class Entity{
 		}catch(Exception e){
 			System.out.println("LOL NO FILE");
 		}
+
+		destroyed = false;
 	}
 	
 	Entity(int w, int h, int x, int y, int x_p, int y_p, String s)
@@ -57,6 +60,8 @@ class Entity{
 				}
 			}
 		}
+
+		destroyed = false;
 	}
 
 	public int getWidth()
