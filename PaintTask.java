@@ -9,15 +9,15 @@ import java.lang.*;
 
 class PaintTask extends TimerTask{
 
-	BasePanel paint;
+	SquareWars paint;
 
-	PaintTask(BasePanel to_paint)
+	PaintTask(SquareWars to_paint)
 	{
 		paint = to_paint;
 	}
 	
 	public void run()
 	{
-		paint.paintComponent((Graphics2D)paint.getGraphics());
+		paint.paintComponent();
 	}
 }

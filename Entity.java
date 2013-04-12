@@ -105,12 +105,12 @@ class Entity{
 		y_pos += y_dis;
 	}
 	
-	public void setx_dis(int x_d)
+	public void setXDis(int x_d)
 	{
 		x_dis = x_d;
 	}
 	
-	public void sety_dis(int y_d)
+	public void setYDis(int y_d)
 	{
 		y_dis = y_d;
 	}

@@ -9,9 +9,9 @@ import java.lang.*;
 
 class UpdateTask extends TimerTask{
 
-	BasePanel update;
+	SquareWars update;
 
-	UpdateTask(BasePanel to_update)
+	UpdateTask(SquareWars to_update)
 	{
 		update = to_update;
 	}
