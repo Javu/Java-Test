@@ -11,6 +11,7 @@ import java.lang.*;
 public class SquareWars extends Canvas{
 	private BufferStrategy strategy;
 	private Vector<Entity> entities;
+	private CollisionDetector collision_detector;
 	
 	public static void main(String args[])
 	{
@@ -61,6 +62,8 @@ public class SquareWars extends Canvas{
 		entities = new Vector<Entity>();
 		Player player = new Player(64,64,512,512,0,0);
 		entities.addElement(player);
+
+		collision_detector = new CollisionDetector();
 	}
 	
 	public Vector<Entity> getEntities()
@@ -75,10 +78,21 @@ public class SquareWars extends Canvas{
 	
 	public void updateComponent()
 	{
+		Vector<Entity> moved_entities = new Vector<Entity>();
+
 		for(int i=0;i < entities.size();i++)
 		{
+			BoundingBox current_position = entities.get(i).getWorldBoundingPoints();
 			entities.get(i).update();
+			BoundingBox new_position = entities.get(i).getWorldBoundingPoints();
+
+			if (!current_position.equals(new_position))
+			{
+				moved_entities.add(entities.get(i));
+			}
 		}
+
+		collision_detector.detectCollisions(moved_entities, entities);
 	}
 	
 	public void paintComponent()
