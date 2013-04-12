@@ -103,6 +103,7 @@ public class SquareWars extends Canvas{
 		{
 			if (entities.get(i).destroyed == true)
 			{
+				//needs to have sprite de-allocation added when merged with Image-Caching
 				entities.remove(i);
 				i -= 1;
 				current_size -= 1;
