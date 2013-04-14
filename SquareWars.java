@@ -93,6 +93,7 @@ public class SquareWars extends Canvas{
 		}
 
 		collision_detector.detectCollisions(moved_entities, entities);
+		collectGarbage();
 	}
 	
 	public void paintComponent()
@@ -106,6 +107,21 @@ public class SquareWars extends Canvas{
 		}
 		g.dispose();
 		strategy.show();
+	}
+
+	public void collectGarbage()
+	{
+		int current_size = entities.size();
+		for (int i=0; i<current_size; i++)
+		{
+			if (entities.get(i).destroyed == true)
+			{
+				//needs to have sprite de-allocation added when merged with Image-Caching
+				entities.remove(i);
+				i -= 1;
+				current_size -= 1;
+			}
+		}
 	}
 	
 	private class KeyInput extends KeyAdapter{

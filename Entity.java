@@ -17,7 +17,8 @@ class Entity{
 	protected int x_dis;
 	protected int y_dis;
 	protected BoundingBox bounding_box;
-	
+	protected boolean destroyed;
+
 	Entity()
 	{
 		width = 64;
@@ -33,6 +34,7 @@ class Entity{
 		}
 
 		bounding_box = new BoundingBox(0,0,width,height);
+		destroyed = false;
 	}
 	
 	Entity(int w, int h, int x, int y, int x_p, int y_p, String s)
@@ -61,6 +63,8 @@ class Entity{
 			}
 		}
 		bounding_box = new BoundingBox(0,0,width,height);
+
+		destroyed = false;
 	}
 
 	public int getWidth()
