@@ -12,6 +12,7 @@ public class SquareWars extends Canvas{
 	private BufferStrategy strategy;
 	private Vector<Entity> entities;
 	private CollisionDetector collision_detector;
+	private Renderer renderer;
 	
 	public static void main(String args[])
 	{
@@ -60,10 +61,13 @@ public class SquareWars extends Canvas{
 		strategy = getBufferStrategy();
 		
 		entities = new Vector<Entity>();
-		Player player = new Player(64,64,512,512,0,0);
+		Player player = new Player(64,64,512,512,0,0,0);
 		entities.addElement(player);
 
 		collision_detector = new CollisionDetector();
+		
+		renderer = new Renderer();
+		renderer.loadImage("square");
 	}
 	
 	public Vector<Entity> getEntities()
@@ -101,10 +105,7 @@ public class SquareWars extends Canvas{
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0,0,getWidth(),getHeight());
-		for(int i=0;i < entities.size();i++)
-		{
-			entities.get(i).paint(g);
-		}
+		g = renderer.render(g,entities);
 		g.dispose();
 		strategy.show();
 	}
@@ -150,10 +151,11 @@ public class SquareWars extends Canvas{
 			{
 				if(!ctrl_flag)
 				{
-					Bullet bullet_left = new Bullet(64,64,entities.elementAt(0).getXPos()-64,entities.elementAt(0).getYPos(),-10,0);
-					Bullet bullet_right = new Bullet(64,64,entities.elementAt(0).getXPos()+64,entities.elementAt(0).getYPos(),10,0);
-					Bullet bullet_up = new Bullet(64,64,entities.elementAt(0).getXPos(),entities.elementAt(0).getYPos()-64,0,-10);
-					Bullet bullet_down = new Bullet(64,64,entities.elementAt(0).getXPos(),entities.elementAt(0).getYPos()+64,0,10);
+					renderer.loadImage("bullet");
+					Bullet bullet_left = new Bullet(64,64,entities.elementAt(0).getXPos()-40,entities.elementAt(0).getYPos(),-10,0,0);
+					Bullet bullet_right = new Bullet(64,64,entities.elementAt(0).getXPos()+40,entities.elementAt(0).getYPos(),10,0,180);
+					Bullet bullet_up = new Bullet(64,64,entities.elementAt(0).getXPos(),entities.elementAt(0).getYPos()-40,0,-10,90);
+					Bullet bullet_down = new Bullet(64,64,entities.elementAt(0).getXPos(),entities.elementAt(0).getYPos()+40,0,10,270);
 					createEntity(bullet_left);
 					createEntity(bullet_right);
 					createEntity(bullet_up);
