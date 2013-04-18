@@ -136,7 +136,7 @@ class Entity{
 		{
 			if (x_dis > 0)
 			{
-				x_pos = other.getWorldBoundingPoints().minX() - 1 - width;
+				x_pos = other.getWorldBoundingPoints().minX() - 1 - bounding_box.maxX();
 			}
 			else if (x_dis < 0)
 			{
@@ -144,7 +144,7 @@ class Entity{
 			}
 			else if (y_dis > 0)
 			{
-				y_pos = other.getWorldBoundingPoints().minY() - 1 - height;
+				y_pos = other.getWorldBoundingPoints().minY() - 1 - bounding_box.maxY();
 			}
 			else if (y_dis < 0)
 			{

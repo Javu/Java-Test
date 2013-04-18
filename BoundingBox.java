@@ -102,6 +102,22 @@ class BoundingBox{
 		}
 	}
 
+	public boolean setPoints(int new_min_x, int new_max_x, int new_min_y, int new_max_y)
+	{
+		if (new_min_x < new_max_x && new_min_y < new_max_y)
+		{
+			min_x = new_min_x;
+			max_x = new_max_x;
+			min_y = new_min_y;
+			max_y = new_max_y;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	public boolean equals(BoundingBox other)
 	{
 		if (min_x == other.minX() && min_y == other.minY() && max_x == other.maxX() && max_y == other.maxY())

@@ -14,5 +14,6 @@ class Wall extends Entity{
 	{
 		super(w,h,x,y,x_p,y_p,rot,"square");
 		solid = true;
+		bounding_box = new BoundingBox(0,0,32,32);
 	}
 }
