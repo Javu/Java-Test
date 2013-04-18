@@ -8,9 +8,9 @@ import java.io.*;
 import java.util.*;
 import java.lang.*;
 
-class Player extends Entity{
+class Wall extends Entity{
 	
-	Player(int w, int h, int x, int y, int x_p, int y_p, double rot)
+	Wall(int w, int h, int x, int y, int x_p, int y_p, double rot)
 	{
 		super(w,h,x,y,x_p,y_p,rot,"square");
 		solid = true;

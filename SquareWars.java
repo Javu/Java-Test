@@ -64,6 +64,16 @@ public class SquareWars extends Canvas{
 		Player player = new Player(64,64,512,512,0,0,0);
 		entities.addElement(player);
 
+		int wall_distance = 500;
+		Wall wall1 = new Wall(64,64,512-wall_distance,512,0,0,0);
+		Wall wall2 = new Wall(64,64,512+wall_distance,512,0,0,0);
+		Wall wall3 = new Wall(64,64,512,512-wall_distance,0,0,0);
+		Wall wall4 = new Wall(64,64,512,512+wall_distance,0,0,0);
+		entities.add(wall1);
+		entities.add(wall2);
+		entities.add(wall3);
+		entities.add(wall4);
+
 		collision_detector = new CollisionDetector();
 		
 		renderer = new Renderer();
@@ -117,7 +127,6 @@ public class SquareWars extends Canvas{
 		{
 			if (entities.get(i).destroyed == true)
 			{
-				//needs to have sprite de-allocation added when merged with Image-Caching
 				entities.remove(i);
 				i -= 1;
 				current_size -= 1;

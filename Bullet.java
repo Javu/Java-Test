@@ -14,4 +14,12 @@ class Bullet extends Entity{
 	{
 		super(w,h,x,y,x_p,y_p,rot,"bullet");
 	}
+
+	public void collide(Entity other)
+	{
+		if (other.getEntityType().equals("Wall"))
+		{
+			destroyed = true;
+		}
+	}
 }

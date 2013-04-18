@@ -30,27 +30,27 @@ class BoundingBox{
 		}
 	}
 
-	public int min_x()
+	public int minX()
 	{
 		return min_x;
 	}
 
-	public int min_y()
+	public int minY()
 	{
 		return min_y;
 	}
 
-	public int max_x()
+	public int maxX()
 	{
 		return max_x;
 	}
 
-	public int max_y()
+	public int maxY()
 	{
 		return max_y;
 	}
 
-	public boolean min_x(int new_min_x)
+	public boolean minX(int new_min_x)
 	{
 		if (new_min_x <= max_x)
 		{
@@ -63,7 +63,7 @@ class BoundingBox{
 		}
 	}
 
-	public boolean min_y(int new_min_y)
+	public boolean minY(int new_min_y)
 	{
 		if (new_min_y <= max_y)
 		{
@@ -76,7 +76,7 @@ class BoundingBox{
 		}
 	}
 
-	public boolean max_x(int new_max_x)
+	public boolean maxX(int new_max_x)
 	{
 		if (new_max_x >= min_x)
 		{
@@ -89,7 +89,7 @@ class BoundingBox{
 		}
 	}
 
-	public boolean max_y(int new_max_y)
+	public boolean maxY(int new_max_y)
 	{
 		if (new_max_y >= min_y)
 		{
@@ -104,7 +104,7 @@ class BoundingBox{
 
 	public boolean equals(BoundingBox other)
 	{
-		if (min_x == other.min_x() && min_y == other.min_y() && max_x == other.max_x() && max_y == other.max_y())
+		if (min_x == other.minX() && min_y == other.minY() && max_x == other.maxX() && max_y == other.maxY())
 		{
 			return true;
 		}
