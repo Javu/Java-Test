@@ -143,25 +143,7 @@ class Entity{
 
 	public void collide(Entity other)
 	{
-		if (other.solid == true)
-		{
-			if (x_dis > 0)
-			{
-				x_pos = other.getWorldBoundingPoints().minX() - 1 - bounding_box.maxX();
-			}
-			else if (x_dis < 0)
-			{
-				x_pos = other.getWorldBoundingPoints().maxX() + 1;
-			}
-			else if (y_dis > 0)
-			{
-				y_pos = other.getWorldBoundingPoints().minY() - 1 - bounding_box.maxY();
-			}
-			else if (y_dis < 0)
-			{
-				y_pos = other.getWorldBoundingPoints().maxY() + 1;
-			}
-		}
+		
 	}
 	
 	public void setRotation(double r)

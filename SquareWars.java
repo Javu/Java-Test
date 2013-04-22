@@ -79,6 +79,8 @@ public class SquareWars extends Canvas{
 		
 		renderer = new Renderer();
 		renderer.loadImage("square_black",33);
+		renderer.loadImage("square_wall",33);
+		renderer.loadImage("bullet",5);
 	}
 	
 	public Vector<Entity> getEntities()
@@ -161,11 +163,10 @@ public class SquareWars extends Canvas{
 			{
 				if(!ctrl_flag)
 				{
-					renderer.loadImage("bullet",5);
-					Bullet bullet_left = new Bullet(5,5,entities.elementAt(0).getXPos()-3,entities.elementAt(0).getYPos()+15,-10,0,0);
-					Bullet bullet_right = new Bullet(5,5,entities.elementAt(0).getXPos()+36,entities.elementAt(0).getYPos()+15,10,0,180);
-					Bullet bullet_up = new Bullet(5,5,entities.elementAt(0).getXPos()+15,entities.elementAt(0).getYPos()-3,0,-10,90);
-					Bullet bullet_down = new Bullet(5,5,entities.elementAt(0).getXPos()+15,entities.elementAt(0).getYPos()+33,0,10,270);
+					Bullet bullet_left = new Bullet(5,5,entities.elementAt(0).getXPos()-3,entities.elementAt(0).getYPos()+15,-10,0,0,0);
+					Bullet bullet_right = new Bullet(5,5,entities.elementAt(0).getXPos()+36,entities.elementAt(0).getYPos()+15,10,0,180,0);
+					Bullet bullet_up = new Bullet(5,5,entities.elementAt(0).getXPos()+15,entities.elementAt(0).getYPos()-3,0,-10,90,0);
+					Bullet bullet_down = new Bullet(5,5,entities.elementAt(0).getXPos()+15,entities.elementAt(0).getYPos()+33,0,10,270,0);
 					createEntity(bullet_left);
 					createEntity(bullet_right);
 					createEntity(bullet_up);
