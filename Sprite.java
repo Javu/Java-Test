@@ -8,5 +8,15 @@ import java.util.*;
 import java.lang.*;
 
 class Sprite{
+	Vector<BufferedImage> images;
 	
+	Sprite(Vector<BufferedImage> sprites)
+	{
+		images = sprites
+	}
+	
+	Vector<BufferedImage> getImages()
+	{
+		return images;
+	}
 }

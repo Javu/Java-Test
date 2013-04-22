@@ -16,6 +16,8 @@ class Entity{
 	protected int y_pos;
 	protected int x_dis;
 	protected int y_dis;
+	protected int sprite_num;
+	protected int animation_counter;
 	protected BoundingBox bounding_box;
 	protected boolean destroyed;
 	protected double rotation;
@@ -27,6 +29,8 @@ class Entity{
 		x_pos = 512;
 		y_pos = 512;
 		rotation = 0;
+		sprite_num = 0;
+		animation_counter = 0;
 
 		bounding_box = new BoundingBox(0,0,width,height);
 		destroyed = false;
@@ -41,6 +45,8 @@ class Entity{
 		x_dis = x_p;
 		y_dis = y_p;
 		rotation = rot;
+		sprite_num = 0;
+		animation_counter = 0;
 
 		bounding_box = new BoundingBox(0,0,width,height);
 
@@ -77,6 +83,11 @@ class Entity{
 	public String getSprite()
 	{
 		return sprite;
+	}
+	
+	public int getSpriteNum()
+	{
+		return sprite_num;
 	}
 	
 	public void setXPos(int i)

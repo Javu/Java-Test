@@ -24,6 +24,7 @@ public class SquareWars extends Canvas{
 		UpdateTask update_task = new UpdateTask(program);
 		long paint_timer_delay = 16;
 		long update_timer_delay = 16;
+		Vector<String> tempppp = new Vector<String>();
 		paintTimer.schedule(paint_task, paint_timer_delay, paint_timer_delay);
 		updateTimer.schedule(update_task, update_timer_delay, update_timer_delay);
 	}
@@ -67,7 +68,7 @@ public class SquareWars extends Canvas{
 		collision_detector = new CollisionDetector();
 		
 		renderer = new Renderer();
-		renderer.loadImage("square");
+		renderer.loadImage("square_black",33);
 	}
 	
 	public Vector<Entity> getEntities()
@@ -151,11 +152,11 @@ public class SquareWars extends Canvas{
 			{
 				if(!ctrl_flag)
 				{
-					renderer.loadImage("bullet");
-					Bullet bullet_left = new Bullet(64,64,entities.elementAt(0).getXPos()-40,entities.elementAt(0).getYPos(),-10,0,0);
-					Bullet bullet_right = new Bullet(64,64,entities.elementAt(0).getXPos()+40,entities.elementAt(0).getYPos(),10,0,180);
-					Bullet bullet_up = new Bullet(64,64,entities.elementAt(0).getXPos(),entities.elementAt(0).getYPos()-40,0,-10,90);
-					Bullet bullet_down = new Bullet(64,64,entities.elementAt(0).getXPos(),entities.elementAt(0).getYPos()+40,0,10,270);
+					renderer.loadImage("bullet",5);
+					Bullet bullet_left = new Bullet(5,5,entities.elementAt(0).getXPos()-3,entities.elementAt(0).getYPos()+15,-10,0,0);
+					Bullet bullet_right = new Bullet(5,5,entities.elementAt(0).getXPos()+36,entities.elementAt(0).getYPos()+15,10,0,180);
+					Bullet bullet_up = new Bullet(5,5,entities.elementAt(0).getXPos()+15,entities.elementAt(0).getYPos()-3,0,-10,90);
+					Bullet bullet_down = new Bullet(5,5,entities.elementAt(0).getXPos()+15,entities.elementAt(0).getYPos()+33,0,10,270);
 					createEntity(bullet_left);
 					createEntity(bullet_right);
 					createEntity(bullet_up);
