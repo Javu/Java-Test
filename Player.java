@@ -12,6 +12,8 @@ class Player extends Entity{
 	Player(int w, int h, int x, int y, int x_p, int y_p, double rot)
 	{
 		super(w,h,x,y,x_p,y_p,rot,"square_black");
+		solid = true;
+		bounding_box = new BoundingBox(0,0,32,32);
 	}
 	
 	public void update()

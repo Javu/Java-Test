@@ -20,6 +20,7 @@ class Entity{
 	protected int animation_counter;
 	protected BoundingBox bounding_box;
 	protected boolean destroyed;
+	protected boolean solid;
 	protected double rotation;
 	
 	Entity()
@@ -34,6 +35,7 @@ class Entity{
 
 		bounding_box = new BoundingBox(0,0,width,height);
 		destroyed = false;
+		solid = false;
 	}
 	
 	Entity(int w, int h, int x, int y, int x_p, int y_p, double rot, String s)
@@ -53,6 +55,7 @@ class Entity{
 		destroyed = false;
 
 		sprite = s;
+		solid = false;
 	}
 
 	public int getWidth()
@@ -104,6 +107,10 @@ class Entity{
 	{
 		x_pos += x_dis;
 		y_pos += y_dis;
+		if (x_pos < 0 || y_pos < 0 || x_pos > 1024 || y_pos > 1024)
+		{
+			destroyed = true;
+		}
 	}
 	
 	public void setXDis(int x_d)
@@ -129,14 +136,32 @@ class Entity{
 
 	public BoundingBox getWorldBoundingPoints()
 	{
-		BoundingBox world_bounding_points = new BoundingBox(x_pos - bounding_box.min_x(), y_pos - bounding_box.min_y(), x_pos + bounding_box.max_x(), y_pos + bounding_box.max_y());
+		BoundingBox world_bounding_points = new BoundingBox(x_pos - bounding_box.minX(), y_pos - bounding_box.minY(), x_pos + bounding_box.maxX(), y_pos + bounding_box.maxY());
 
 		return world_bounding_points;
 	}
 
 	public void collide(Entity other)
 	{
-
+		if (other.solid == true)
+		{
+			if (x_dis > 0)
+			{
+				x_pos = other.getWorldBoundingPoints().minX() - 1 - bounding_box.maxX();
+			}
+			else if (x_dis < 0)
+			{
+				x_pos = other.getWorldBoundingPoints().maxX() + 1;
+			}
+			else if (y_dis > 0)
+			{
+				y_pos = other.getWorldBoundingPoints().minY() - 1 - bounding_box.maxY();
+			}
+			else if (y_dis < 0)
+			{
+				y_pos = other.getWorldBoundingPoints().maxY() + 1;
+			}
+		}
 	}
 	
 	public void setRotation(double r)
@@ -147,5 +172,10 @@ class Entity{
 	public void setSprite(String image)
 	{
 		sprite = image;
+	}
+
+	public String getEntityType()
+	{
+		return getClass().toString().substring(6);
 	}
 }

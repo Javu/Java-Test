@@ -24,13 +24,38 @@ class CollisionDetector
 
 			for (int j=0; j<all_entities.size(); j++)
 			{
-				Entity current_object = all_entities.get(j);
-				BoundingBox object_box = current_object.getWorldBoundingPoints();
-
-				if (subject_box.min_x() >= object_box.min_x() && subject_box.min_y() >= object_box.min_y() && subject_box.max_x() <= object_box.max_x() && subject_box.max_y() <= object_box.max_y())
+				if (j != i)
 				{
-					current_subject.collide(current_object);
-					current_object.collide(current_subject);
+					Entity current_object = all_entities.get(j);
+					BoundingBox object_box = current_object.getWorldBoundingPoints();
+					boolean collision = false;
+					
+					if (subject_box.minX() >= object_box.minX() && subject_box.minX() <= object_box.maxX() && subject_box.minY() >= object_box.minY() && subject_box.minY() <= object_box.maxY())
+					{
+						collision = true;
+					}
+
+					if (subject_box.minX() >= object_box.minX() && subject_box.minX() <= object_box.maxX() && subject_box.maxY() >= object_box.minY() && subject_box.maxY() <= object_box.maxY())
+					{
+						collision = true;
+					}
+
+					if (subject_box.maxX() >= object_box.minX() && subject_box.maxX() <= object_box.maxX() && subject_box.minY() >= object_box.minY() && subject_box.minY() <= object_box.maxY())
+					{
+						collision = true;
+					}
+
+					if (subject_box.maxX() >= object_box.minX() && subject_box.maxX() <= object_box.maxX() && subject_box.maxY() >= object_box.minY() && subject_box.maxY() <= object_box.maxY())
+					{
+						collision = true;
+					}
+
+					if (collision)
+					{
+						System.out.println("Collision between " + current_object.getEntityType() + " and " + current_subject.getEntityType() + "!");
+						current_subject.collide(current_object);
+						current_object.collide(current_subject);
+					}
 				}
 			}
 		}
