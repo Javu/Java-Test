@@ -6,13 +6,14 @@ import javax.imageio.*;
 import java.io.*;
 import java.util.*;
 import java.lang.*;
+import java.awt.image.*;
 
 class Sprite{
 	Vector<BufferedImage> images;
 	
 	Sprite(Vector<BufferedImage> sprites)
 	{
-		images = sprites
+		images = sprites;
 	}
 	
 	Vector<BufferedImage> getImages()
