@@ -22,6 +22,7 @@ class Entity{
 	protected boolean destroyed;
 	protected boolean solid;
 	protected double rotation;
+	public Vector<Entity> entities;
 	
 	Entity()
 	{
@@ -32,6 +33,7 @@ class Entity{
 		rotation = 0;
 		sprite_num = 0;
 		animation_counter = 0;
+		sprite = "square_black";
 
 		bounding_box = new BoundingBox(0,0,width,height);
 		destroyed = false;
@@ -91,6 +93,11 @@ class Entity{
 	public int getSpriteNum()
 	{
 		return sprite_num;
+	}
+	
+	public void setSpriteNum(int num)
+	{
+		sprite_num = num;
 	}
 	
 	public void setXPos(int i)
@@ -177,5 +184,25 @@ class Entity{
 	public String getEntityType()
 	{
 		return getClass().toString().substring(6);
+	}
+	
+	public int numEnt()
+	{
+		return x_pos;
+	}
+	
+	public void addAEntity(Vector<Entity> ent)
+	{
+	
+	}
+	
+	public Vector<Entity> giveEnt()
+	{
+		return entities;
+	}
+	
+	public void setEntNum()
+	{
+	
 	}
 }

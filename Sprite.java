@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.awt.image.*;
 import javax.swing.*;
 import javax.imageio.*;
 import java.io.*;
@@ -12,7 +13,7 @@ class Sprite{
 	
 	Sprite(Vector<BufferedImage> sprites)
 	{
-		images = sprites
+		images = sprites;
 	}
 	
 	Vector<BufferedImage> getImages()

@@ -9,11 +9,15 @@ import java.util.*;
 import java.lang.*;
 
 class Player extends Entity{
-	Player(int w, int h, int x, int y, int x_p, int y_p, double rot)
+	
+	public Vector<Entity> entities;
+
+	Player(int w, int h, int x, int y, int x_p, int y_p, double rot, Vector<Entity> ent)
 	{
 		super(w,h,x,y,x_p,y_p,rot,"square_black");
 		solid = true;
 		bounding_box = new BoundingBox(0,0,32,32);
+		entities = ent;
 	}
 	
 	public void update()
@@ -32,5 +36,27 @@ class Player extends Entity{
 			animation_counter = 0;
 		}
 		animation_counter++;
+	}
+	
+	public int numEnt()
+	{
+		return entities.size();
+	}
+	
+	public void addAEntity(Vector<Entity> ent)
+	{
+		Bullet bullet = new Bullet(5,5,x_pos, y_pos,0,0,0);
+		entities.add(bullet);
+		ent.add(bullet);
+	}
+	
+	public Vector<Entity> giveEnt()
+	{
+		return entities;
+	}
+	
+	public void setEntNum()
+	{
+		entities.lastElement().setSpriteNum(2);
 	}
 }

@@ -13,10 +13,29 @@ public class SquareWars extends Canvas{
 	private Vector<Entity> entities;
 	private CollisionDetector collision_detector;
 	private Renderer renderer;
+	private int context;
 	
 	public static void main(String args[])
 	{
 		SquareWars program = new SquareWars();
+		// Create Test Entity
+		System.out.println(program.getEntities().elementAt(0).numEnt());
+		program.createEntity(new Entity());
+		System.out.println(program.getEntities().elementAt(0).numEnt());
+		
+		program.getEntities().elementAt(0).addAEntity(program.getEntities());
+		
+		program.getEntities().lastElement().setSpriteNum(1);
+		System.out.println(program.getEntities().lastElement().getSpriteNum());
+		System.out.println(program.getEntities().elementAt(0).giveEnt().lastElement().getSpriteNum());
+		
+		program.getEntities().elementAt(0).setEntNum();
+		System.out.println(program.getEntities().elementAt(0).giveEnt().lastElement().getSpriteNum());
+		System.out.println(program.getEntities().lastElement().getSpriteNum());
+		/*
+		Vector<Entity> menuItems = new Vector<Entity>();
+		menuItems.addElement(new Entity(297,99,512,512,0,0,0,"menu"));
+		program.setEntityList(menuItems);*/
 		
 		java.util.Timer paintTimer = new java.util.Timer();
 		java.util.Timer updateTimer = new java.util.Timer();
@@ -27,10 +46,29 @@ public class SquareWars extends Canvas{
 		Vector<String> tempppp = new Vector<String>();
 		paintTimer.schedule(paint_task, paint_timer_delay, paint_timer_delay);
 		updateTimer.schedule(update_task, update_timer_delay, update_timer_delay);
+		boolean run = true;
+		while(run == true)
+		{
+			if(program.getContext() == 0)
+			{
+				Vector<Entity> menuItems1 = new Vector<Entity>();
+				menuItems1.addElement(new Entity(297,99,512,512,0,0,0,"menu"));
+				program.setEntityList(menuItems1);
+			}
+			else if(program.getContext() == 1)
+			{
+				Vector<Entity> menuItems1 = new Vector<Entity>();
+				menuItems1.addElement(new Entity(297,99,512,10,0,0,0,"menu_kick_player"));
+				menuItems1.addElement(new Entity(297,99,512,300,0,0,0,"menu_change_team"));
+				menuItems1.addElement(new Entity(297,99,512,700,0,0,0,"menu_use_team"));
+				program.setEntityList(menuItems1);
+			}
+		}
 	}
 
 	SquareWars()
 	{
+		context = 0;
 		int X_SIZE = 1024;
 		int Y_SIZE = 1024;
 		
@@ -62,7 +100,7 @@ public class SquareWars extends Canvas{
 		strategy = getBufferStrategy();
 		
 		entities = new Vector<Entity>();
-		Player player = new Player(64,64,512,512,0,0,0);
+		Player player = new Player(64,64,512,512,0,0,0,entities);
 		entities.addElement(player);
 
 		int wall_distance = 500;
@@ -79,6 +117,12 @@ public class SquareWars extends Canvas{
 		
 		renderer = new Renderer();
 		renderer.loadImage("square_black",33);
+		renderer.loadImage("square_wall",33);
+		renderer.loadImage("bullet",5);
+		renderer.loadImage("menu");
+		renderer.loadImage("menu_kick_player");
+		renderer.loadImage("menu_change_team");
+		renderer.loadImage("menu_use_team");
 	}
 	
 	public Vector<Entity> getEntities()
@@ -89,6 +133,11 @@ public class SquareWars extends Canvas{
 	public void createEntity(Entity ent)
 	{
 		entities.addElement(ent);
+	}
+	
+	public void setEntityList(Vector<Entity> ent)
+	{
+		entities = ent;
 	}
 	
 	public void updateComponent()
@@ -141,6 +190,21 @@ public class SquareWars extends Canvas{
 		
 		public void keyPressed(KeyEvent e)
 		{
+			if(context == 0)
+			{
+				if (e.getKeyCode() == KeyEvent.VK_LEFT)
+				{
+					context = 1;
+				}
+			}
+			else if(context == 1)
+			{
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+				{
+					context = 0;
+				}
+			}/*
+			 Movement testing
 			if (e.getKeyCode() == KeyEvent.VK_LEFT)
 			{
 				entities.elementAt(0).setXDis(-5);
@@ -172,11 +236,13 @@ public class SquareWars extends Canvas{
 					createEntity(bullet_down);
 					ctrl_flag = true;
 				}
-			}
+			}*/
 		}
 		
 		public void keyReleased(KeyEvent e)
 		{
+		
+			/* Movement Testing
 			if(e.getKeyCode() == KeyEvent.VK_LEFT)
 			{
 				entities.elementAt(0).setXDis(0);
@@ -196,7 +262,7 @@ public class SquareWars extends Canvas{
 			else if(e.getKeyCode() == KeyEvent.VK_CONTROL)
 			{
 				ctrl_flag = false;
-			}
+			}*/
 		}
 		
 		public void keyTyped(KeyEvent e)
@@ -206,5 +272,10 @@ public class SquareWars extends Canvas{
 				System.exit(0);
 			}			
 		}
+	}
+	
+	public int getContext()
+	{
+		return context;
 	}
 }

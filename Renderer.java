@@ -20,15 +20,22 @@ class Renderer{
 	{
 		for(int i=0;i<entities.size();i++)
 		{
-			AffineTransform a = g.getTransform();
-			AffineTransform b = new AffineTransform();
-			b.translate(entities.elementAt(i).getXPos()+(entities.elementAt(i).getWidth()/2),entities.elementAt(i).getYPos()+(entities.elementAt(i).getHeight()/2));
-			b.rotate(Math.toRadians(entities.elementAt(i).getRotation()));
-			b.translate(-entities.elementAt(i).getXPos()-(entities.elementAt(i).getWidth()/2),-entities.elementAt(i).getYPos()-(entities.elementAt(i).getHeight()/2));
-			g.setTransform(b);
-			Vector<BufferedImage> temp = images.get(entities.elementAt(i).getSprite());
-			g.drawImage(temp.elementAt(entities.elementAt(i).getSpriteNum()),entities.elementAt(i).getXPos(),entities.elementAt(i).getYPos(),null);
-			g.setTransform(a);
+			try
+			{
+				AffineTransform a = g.getTransform();
+				AffineTransform b = new AffineTransform();
+				b.translate(entities.elementAt(i).getXPos()+(entities.elementAt(i).getWidth()/2),entities.elementAt(i).getYPos()+(entities.elementAt(i).getHeight()/2));
+				b.rotate(Math.toRadians(entities.elementAt(i).getRotation()));
+				b.translate(-entities.elementAt(i).getXPos()-(entities.elementAt(i).getWidth()/2),-entities.elementAt(i).getYPos()-(entities.elementAt(i).getHeight()/2));
+				g.setTransform(b);
+				Vector<BufferedImage> temp = images.get(entities.elementAt(i).getSprite());
+				g.drawImage(temp.elementAt(entities.elementAt(i).getSpriteNum()),entities.elementAt(i).getXPos(),entities.elementAt(i).getYPos(),null);
+				g.setTransform(a);
+			}
+			catch(Exception e)
+			{
+			
+			}
 		}
 		return g;
 	}
